@@ -1,0 +1,25 @@
+service: sls
+package:
+  exclude:
+    - README.md
+    - package*.json
+provider:
+  name: aws
+  runtime: nodejs8.10
+functions:
+  running:
+    handler: src/index.graphqlHandler
+    name: sls-running
+    package:
+      include:
+        - src/**
+        - node_modules/**
+    events:
+      - http:
+          path: graphql
+          method: post
+          cors: true
+      - http:
+          path: graphql
+          method: get
+          cors: true
