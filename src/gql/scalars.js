@@ -1,5 +1,6 @@
 const { GraphQLScalarType, Kind } = require('graphql');
 const { ObjectID } = require('mongodb');
+const { has } = require('lodash');
 
 /**
  * GraphQL custom scalars
@@ -12,14 +13,14 @@ const ObjectIdScalarType = new GraphQLScalarType({
     return new ObjectID(value);
   },
   serialize(value) {
-    return value.toHexString();
+    return has(value, 'toHexString') ? value.toHexString() : value;
   },
   parseLiteral(ast) {
     if (ast.kind === Kind.STRING) {
       return new ObjectID(ast.value);
     }
     return null;
-  },
+  }
 });
 
 const DateScalarType = new GraphQLScalarType({
@@ -29,17 +30,17 @@ const DateScalarType = new GraphQLScalarType({
     return new Date(value);
   },
   serialize(value) {
-    return value.getTime();
+    return has(value, 'getTime') ? value.getTime() : value;
   },
   parseLiteral(ast) {
     if (ast.kind === Kind.INT) {
       return new Date(ast.value);
     }
     return null;
-  },
+  }
 });
 
 module.exports = {
   ObjectIdScalarType,
-  DateScalarType,
+  DateScalarType
 };
