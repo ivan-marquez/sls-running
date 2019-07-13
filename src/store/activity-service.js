@@ -3,14 +3,20 @@ const { isEmpty, chain } = require('lodash');
 
 /**
  * @desc running activities service
- * @param {{db: any, connection: Function}} store MongoDB connection
+ * @param {Promise} store MongoDB connection
+ * @returns {db: any, closeConnection: Function} connection handlers
  */
-function activityService({ db, closeConnection }) {
+function activityService(store) {
   /**
    * @desc retrieve running activities
    * @param {{first: number, after: string}} queryParams params from gql query
    */
   async function getActivities(_, { first = 10, after }) {
+    const { db, closeConnection } = await store(
+      process.env.DB_URL,
+      process.env.DB_NAME
+    );
+
     try {
       const query = isEmpty(after) ? {} : { _id: { $gt: ObjectID(after) } };
 
