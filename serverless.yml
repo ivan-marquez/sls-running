@@ -3,6 +3,7 @@ package:
   exclude:
     - README.md
     - package*.json
+    - docs/**
 provider:
   name: aws
   runtime: nodejs8.10
