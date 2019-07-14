@@ -1,12 +1,13 @@
 # sls-running
 
-WIP
+Running log for Philadelphia Marathon training 2018
 
-## Components
+## Solution Components
 
-![components](./docs/solution_diagram.svg "Logo Title Text 1")
+![components](./docs/solution_diagram.svg "Solution Components")
 
 
-- React app that displays the list using React hooks and Apollo Client.  
-  [![Edit ui-running-activities](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/m98lplo5y)
-- AWS API Gateway
+### Front-End code:
+
+[![Edit ui-running-activities](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/m98lplo5y)
+
