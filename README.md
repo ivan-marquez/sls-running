@@ -6,7 +6,7 @@ Running log for Philadelphia Marathon training 2018
 
 ## Solution Components
 
-![components](./docs/solution_diagram.png "Solution Components")
+![components](./docs/solution_diagram.svg "Solution Components")
 
 
 ### Front-End code:
