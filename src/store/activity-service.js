@@ -3,22 +3,17 @@ const { isEmpty, chain } = require('lodash');
 
 /**
  * @desc running activities service
- * @param {Promise} store MongoDB connection
- * @returns {db: any, closeConnection: Function} connection handlers
+ * @param {Object} db MongoDB database object
  */
-function activityService(store) {
+function activityService(db) {
   /**
    * @desc retrieve running activities
+   * @param {any} _ gql parent object
    * @param {{first: number, after: string}} queryParams params from gql query
    */
   async function getActivities(_, { first = 10, after }) {
-    const { db, closeConnection } = await store(
-      process.env.DB_URL,
-      process.env.DB_NAME
-    );
-
     try {
-      const query = isEmpty(after) ? {} : { _id: { $gt: ObjectID(after) } };
+      const query = isEmpty(after) ? {} : { _id: { $gt: new ObjectID(after) } };
 
       const activities = await db
         .collection('activity')
@@ -33,18 +28,16 @@ function activityService(store) {
 
       return {
         activities,
-        cursor
+        cursor,
       };
     } catch (error) {
       console.log(error);
       throw error;
-    } finally {
-      closeConnection();
     }
   }
 
   return {
-    getActivities
+    getActivities,
   };
 }
 

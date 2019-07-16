@@ -4,7 +4,10 @@ const { MongoClient } = require('mongodb');
  * MongoDB client connection
  */
 async function store(dbUrl, dbName) {
-  const client = await MongoClient.connect(dbUrl);
+  const client = await MongoClient.connect(dbUrl, {
+    useNewUrlParser: true,
+  });
+
   const db = client.db(dbName);
 
   function closeConnection() {
@@ -13,7 +16,7 @@ async function store(dbUrl, dbName) {
 
   return {
     db,
-    closeConnection
+    closeConnection,
   };
 }
 
