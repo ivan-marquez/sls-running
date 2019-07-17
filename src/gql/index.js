@@ -1,19 +1,16 @@
 const typeDefs = require('./typeDefs');
 const { ApolloServer } = require('apollo-server-lambda');
+const resolvers = require('./resolvers');
 
-module.exports = db => {
-  const context = ({ event, context }) => ({
-    headers: event.headers,
-    functionName: context.functionName,
-    event,
-    context,
-  });
+const context = ({ event, context }) => ({
+  headers: event.headers,
+  functionName: context.functionName,
+  event,
+  context
+});
 
-  const resolvers = require('./resolvers')(db);
-
-  return new ApolloServer({
-    typeDefs,
-    resolvers,
-    context,
-  });
-};
+module.exports = new ApolloServer({
+  typeDefs,
+  resolvers,
+  context
+});
