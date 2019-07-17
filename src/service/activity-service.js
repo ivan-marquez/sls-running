@@ -10,10 +10,13 @@ function activityService() {
    * @desc retrieve running activities
    * @param {any} _ gql parent object
    * @param {{first: number, after: string}} queryParams params from gql query
-   * @param {{db: any}} context gql context object
+   * @param {{_db: any}} ctx gql context object
    */
-  async function getActivities(_, { first = 10, after }, { _db }) {
+  async function getActivities(_, { first = 10, after }, ctx) {
     try {
+      console.log('ctx:', ctx);
+      const { _db } = ctx;
+      console.log('_db:', _db);
       const query = isEmpty(after) ? {} : { _id: { $gt: new ObjectID(after) } };
 
       const activities = await _db
@@ -29,7 +32,7 @@ function activityService() {
 
       return {
         activities,
-        cursor
+        cursor,
       };
     } catch (error) {
       console.log(error);
@@ -38,7 +41,7 @@ function activityService() {
   }
 
   return {
-    getActivities
+    getActivities,
   };
 }
 
