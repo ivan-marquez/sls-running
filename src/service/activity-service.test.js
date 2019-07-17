@@ -1,7 +1,8 @@
 // @ts-nocheck
-const activityService = require('./activity-service');
 const { MongoClient } = require('mongodb');
 const { size, first } = require('lodash');
+
+const activityService = require('./activity-service');
 
 describe('Running Log integration tests', () => {
   var client;
@@ -10,7 +11,7 @@ describe('Running Log integration tests', () => {
 
   beforeAll(async () => {
     client = await MongoClient.connect(global.__DB_URL__, {
-      useNewUrlParser: true,
+      useNewUrlParser: true
     });
 
     db = client.db(global.__DB_NAME__);
@@ -23,7 +24,7 @@ describe('Running Log integration tests', () => {
       it('should return a valid response', async () => {
         const params = {
           first: 15,
-          after: undefined,
+          after: undefined
         };
 
         const { activities, cursor } = await getActivities(null, params);
@@ -44,7 +45,7 @@ describe('Running Log integration tests', () => {
 
         const params = {
           first: 10,
-          after: String(secondLast._id),
+          after: String(secondLast._id)
         };
 
         const { activities } = await getActivities(null, params);

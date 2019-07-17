@@ -5,17 +5,18 @@ const { isEmpty, chain } = require('lodash');
  * @desc running activities service
  * @param {Object} db MongoDB database object
  */
-function activityService(db) {
+function activityService() {
   /**
    * @desc retrieve running activities
    * @param {any} _ gql parent object
    * @param {{first: number, after: string}} queryParams params from gql query
+   * @param {{db: any}} context gql context object
    */
-  async function getActivities(_, { first = 10, after }) {
+  async function getActivities(_, { first = 10, after }, { _db }) {
     try {
       const query = isEmpty(after) ? {} : { _id: { $gt: new ObjectID(after) } };
 
-      const activities = await db
+      const activities = await _db
         .collection('activity')
         .find(query)
         .limit(first)
@@ -28,7 +29,7 @@ function activityService(db) {
 
       return {
         activities,
-        cursor,
+        cursor
       };
     } catch (error) {
       console.log(error);
@@ -37,7 +38,7 @@ function activityService(db) {
   }
 
   return {
-    getActivities,
+    getActivities
   };
 }
 
