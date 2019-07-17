@@ -7,8 +7,9 @@ cache:
     - node_modules
 install:
   - npm install
-script:
   - npm install -g serverless
+script:
+  - npm t
   - sls deploy
 branches:
   only:
