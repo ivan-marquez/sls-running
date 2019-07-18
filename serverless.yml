@@ -1,4 +1,7 @@
 service: sls
+plugins:
+  - serverless-dotenv-plugin
+  - serverless-offline
 package:
   exclude:
     - README.md
