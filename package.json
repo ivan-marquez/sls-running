@@ -4,6 +4,7 @@
   "description": "Script component built using serverless.",
   "main": "src",
   "scripts": {
+    "start": "sls offline",
     "test": "jest"
   },
   "repository": {

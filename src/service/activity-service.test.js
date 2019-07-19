@@ -16,7 +16,7 @@ describe('Running Log integration tests', () => {
     _db = client.db(global.__DB_NAME__);
   });
 
-  describe('Given a query to retrieve activities', () => {
+  describe('Given a request to retrieve activities', () => {
     describe('when providing all query params', () => {
       it('should return a valid response', async () => {
         const params = {
